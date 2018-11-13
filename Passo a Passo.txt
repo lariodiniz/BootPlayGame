@@ -1,0 +1,11 @@
+Telegram:
+1 - Registre o Boot no Telegram
+	- dentro do Telegram, converse com o Boot BotFather.
+		1 - navegue até o @botfather
+		2 - Aperte em Start
+		3 - digite /newbot
+		4 - Ele vai perguntar o nome do bot, defina um nome
+		5 - Ele vai perguntar o nome de usuario do bot, defina um nome
+		6 - Bot Criado, siga as intruções para colocar uma descrição.
+
+	
