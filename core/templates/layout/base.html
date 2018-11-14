@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Bot PlayGame{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    {% load static %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'assets/bulma.min.css' %}" media="screen" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container is-fluid">
+
+
+            {% block messages %}
+                {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }}">
+                      {{ message }}
+                  </div>
+                {% endfor %}
+            {% endblock %}
+
+            {% block container %}
+            {% endblock %}
+        </div>
+    </section>
+    {% block scripts %}
+
+    {% endblock %}
+</body>
+</html>
