@@ -8,4 +8,6 @@ Telegram:
 		5 - Ele vai perguntar o nome de usuario do bot, defina um nome
 		6 - Bot Criado, siga as intruções para colocar uma descrição.
 
+2 - Crie um WebHooks
+	1 - Acesse o site https://webhook.site 
 	
