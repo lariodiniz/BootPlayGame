@@ -22,10 +22,10 @@ class IndexViewTestCase(TestCase):
 
     def test_template_used(self):
         """
-        Testa se o template utilizado é o core\index.html
+        Testa se o template utilizado é o core/index.html
         """
         response = self.client.get(self.url)
-        self.assertTemplateUsed(response, 'core\index.html')
+        self.assertTemplateUsed(response, 'core/index.html')
 
     def test_info_template(self):
         """
