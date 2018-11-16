@@ -4,6 +4,7 @@ __author__ = "Lário dos Santos Diniz"
 from bootplaygame import settings
 import requests
 import datetime
+from bot_telegram.models import Jogadores
 
 class BotTelegram():
 
@@ -34,8 +35,6 @@ class BotTelegram():
         return last_update
 
 
-greetings = ('hello', 'hi', 'greetings', 'sup')
-
 class Bot():
 
     def __agora(self):
@@ -44,6 +43,42 @@ class Bot():
     def __init__(self):
         self.__bot = BotTelegram()
         self.__agora()
+
+    def __cadastraJogador(self):
+        jogador = Jogadores()
+        jogador.nome = self.__telegram_nome
+        jogador.id = int(self.__telegram_id)
+        jogador.save()
+
+    def __start(self):
+        mensagem = 'Seja bem vindo ao PlayGame RPG, estamos preparando a sua aventura {}\n'.format(self.__telegram_nome)
+        mensagem += 'Por favor, espere um minuto.'
+        self.__bot.send_message(self.__telegram_id, mensagem)
+
+        if Jogadores.objects.filter(id=self.__telegram_id).exists():
+            mensagem = "Você já é um jogador cadastrado."
+            self.__bot.send_message(self.__telegram_id, mensagem)
+        else:
+            mensagem = "Você não é um jogador cadastrado. Estamos te cadastrando..."
+            contador = 0
+
+            while contador < 3:
+                self.__bot.send_message(self.__telegram_id, mensagem)
+                self.__cadastraJogador()
+                if Jogadores.objects.filter(id=self.__telegram_id).exists():
+                    mensagem = "Você foi cadastrado com sucesso."
+                    self.__bot.send_message(self.__telegram_id, mensagem)
+                    contador = 4
+                elif contador < 2:
+                    mensagem = "Aconteceu um problema no cadastro, vamos tentar mais uma vez."
+                    self.__bot.send_message(self.__telegram_id, mensagem)
+                elif contador == 2:
+                    mensagem = "Aconteceu um problema no cadastro, vamos tentar uma ultima vez."
+                    self.__bot.send_message(self.__telegram_id, mensagem)
+                contador += 1
+            if contador == 3:
+                mensagem = "Não conseguimos te cadastrar, por favor, tente de novo mais tarde."
+                self.__bot.send_message(self.__telegram_id, mensagem)
 
     def Ativar(self):
         novas_mensagens = None
@@ -55,22 +90,16 @@ class Bot():
 
             ultimas_mensagens = self.__bot.get_last_update()
 
-            ultimas_mensagens_id = ultimas_mensagens['update_id']
-            mensagem = ultimas_mensagens['message']['text']
-            telegram_id = ultimas_mensagens['message']['chat']['id']
-            telegram_nome = ultimas_mensagens['message']['chat']['first_name']
+            self.__ultimas_mensagens_id = ultimas_mensagens['update_id']
+            self.__mensagem = ultimas_mensagens['message']['text']
+            self.__telegram_id = ultimas_mensagens['message']['chat']['id']
+            self.__telegram_nome = ultimas_mensagens['message']['chat']['first_name']
 
-            print(mensagem.lower())
-            if mensagem.lower() in greetings and today == self.__now.day and 6 <= hour < 12:
-                self.__bot.send_message(telegram_id, 'Good Morning  {}'.format(telegram_nome))
-                today += 1
+            if self.__mensagem.lower() == '/start':
+                self.__start()
 
-            elif mensagem.lower() in greetings and today == self.__now.day and 12 <= hour < 17:
-                self.__bot.send_message(telegram_id, 'Good Afternoon {}'.format(telegram_nome))
-                today += 1
 
-            elif mensagem.lower() in greetings and today == self.__now.day and 17 <= hour < 23:
-                self.__bot.send_message(telegram_id, 'Good Evening  {}'.format(telegram_nome))
-                today += 1
 
-            novas_mensagens = ultimas_mensagens_id + 1
+            novas_mensagens = self.__ultimas_mensagens_id + 1
+
+Bot().Ativar()
