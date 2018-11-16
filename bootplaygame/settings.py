@@ -14,7 +14,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', '123')
-
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '123')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -34,15 +34,17 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-
+    ''
 ]
 
 LOCAL_APPS = [
-    'core'
+    'core',
+    'bot_telegram'
 ]
 
-#INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS
-INSTALLED_APPS = LOCAL_APPS +  DEFAULT_APPS
+# INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS
+INSTALLED_APPS = LOCAL_APPS + DEFAULT_APPS
+
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -140,3 +142,4 @@ try:
     from .local_settings  import *
 except ImportError:
     django_heroku.settings(locals())
+

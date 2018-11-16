@@ -8,9 +8,12 @@ https://docs.djangoproject.com/en/2.1/howto/deployment/wsgi/
 """
 
 import os
+from bot_telegram.bot import Bot
 
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bootplaygame.settings')
 
 application = get_wsgi_application()
+
+Bot().Ativar()
