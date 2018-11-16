@@ -44,6 +44,13 @@ class Bot():
         self.__bot = BotTelegram()
         self.__agora()
 
+
+    def __executa(self):
+        self.status = True
+
+    def Parar(self):
+        self.status = False
+
     def __cadastraJogador(self):
         jogador = Jogadores()
         jogador.nome = self.__telegram_nome
@@ -81,11 +88,12 @@ class Bot():
                 self.__bot.send_message(self.__telegram_id, mensagem)
 
     def Ativar(self):
+        self.__executa()
         novas_mensagens = None
         today = self.__now.day
         hour = self.__now.hour
 
-        while True:
+        while self.status:
             self.__bot.get_updates(novas_mensagens)
 
             ultimas_mensagens = self.__bot.get_last_update()
@@ -98,8 +106,5 @@ class Bot():
             if self.__mensagem.lower() == '/start':
                 self.__start()
 
-
-
             novas_mensagens = self.__ultimas_mensagens_id + 1
 
-Bot().Ativar()
