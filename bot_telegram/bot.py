@@ -56,21 +56,21 @@ class Bot():
             ultimas_mensagens = self.__bot.get_last_update()
 
             ultimas_mensagens_id = ultimas_mensagens['update_id']
-            last_chat_text = ultimas_mensagens['message']['text']
-            last_chat_id = ultimas_mensagens['message']['chat']['id']
-            last_chat_name = ultimas_mensagens['message']['chat']['first_name']
+            mensagem = ultimas_mensagens['message']['text']
+            telegram_id = ultimas_mensagens['message']['chat']['id']
+            telegram_nome = ultimas_mensagens['message']['chat']['first_name']
 
-            print(last_chat_text.lower())
-            if last_chat_text.lower() in greetings and today == self.__now.day and 6 <= hour < 12:
-                self.__bot.send_message(last_chat_id, 'Good Morning  {}'.format(last_chat_name))
+            print(mensagem.lower())
+            if mensagem.lower() in greetings and today == self.__now.day and 6 <= hour < 12:
+                self.__bot.send_message(telegram_id, 'Good Morning  {}'.format(telegram_nome))
                 today += 1
 
-            elif last_chat_text.lower() in greetings and today == self.__now.day and 12 <= hour < 17:
-                self.__bot.send_message(last_chat_id, 'Good Afternoon {}'.format(last_chat_name))
+            elif mensagem.lower() in greetings and today == self.__now.day and 12 <= hour < 17:
+                self.__bot.send_message(telegram_id, 'Good Afternoon {}'.format(telegram_nome))
                 today += 1
 
-            elif last_chat_text.lower() in greetings and today == self.__now.day and 17 <= hour < 23:
-                self.__bot.send_message(last_chat_id, 'Good Evening  {}'.format(last_chat_name))
+            elif mensagem.lower() in greetings and today == self.__now.day and 17 <= hour < 23:
+                self.__bot.send_message(telegram_id, 'Good Evening  {}'.format(telegram_nome))
                 today += 1
 
             novas_mensagens = ultimas_mensagens_id + 1
