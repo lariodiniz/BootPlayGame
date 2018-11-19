@@ -37,27 +37,21 @@ class BotTelegram():
 
 class Bot():
 
-    def __agora(self):
+    def __Agora(self):
         self.__now = datetime.datetime.now()
 
     def __init__(self):
         self.__bot = BotTelegram()
-        self.__agora()
+        self.__Agora()
 
 
-    def __executa(self):
-        self.status = True
-
-    def Parar(self):
-        self.status = False
-
-    def __cadastraJogador(self):
+    def __CadastraJogador(self):
         jogador = Jogadores()
         jogador.nome = self.__telegram_nome
         jogador.id = int(self.__telegram_id)
         jogador.save()
 
-    def __start(self):
+    def __Start(self):
         mensagem = 'Seja bem vindo ao PlayGame RPG, estamos preparando a sua aventura {}\n'.format(self.__telegram_nome)
         mensagem += 'Por favor, espere um minuto.'
         self.__bot.send_message(self.__telegram_id, mensagem)
@@ -71,7 +65,7 @@ class Bot():
 
             while contador < 3:
                 self.__bot.send_message(self.__telegram_id, mensagem)
-                self.__cadastraJogador()
+                self.__CadastraJogador()
                 if Jogadores.objects.filter(id=self.__telegram_id).exists():
                     mensagem = "Você foi cadastrado com sucesso."
                     self.__bot.send_message(self.__telegram_id, mensagem)
@@ -88,12 +82,11 @@ class Bot():
                 self.__bot.send_message(self.__telegram_id, mensagem)
 
     def Ativar(self):
-        self.__executa()
         novas_mensagens = None
         today = self.__now.day
         hour = self.__now.hour
 
-        while self.status:
+        while True:
             self.__bot.get_updates(novas_mensagens)
 
             ultimas_mensagens = self.__bot.get_last_update()
@@ -104,7 +97,7 @@ class Bot():
             self.__telegram_nome = ultimas_mensagens['message']['chat']['first_name']
 
             if self.__mensagem.lower() == '/start':
-                self.__start()
+                self.__Start()
 
             novas_mensagens = self.__ultimas_mensagens_id + 1
 

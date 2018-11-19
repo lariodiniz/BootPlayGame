@@ -1,1 +1,1 @@
-from .bot_view import ativaBotView, desativaView
+from .bot_view import ativaBotView
