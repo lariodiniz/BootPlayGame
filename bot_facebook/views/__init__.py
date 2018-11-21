@@ -1,0 +1,1 @@
+from .ativa_bot_view import ativaBotView

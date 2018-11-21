@@ -11,4 +11,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('telegram/', include('bot_telegram.urls', namespace='telegram')),
+    path('facebook/', include('bot_facebook.urls', namespace='facebook')),
 ]

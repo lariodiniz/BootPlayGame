@@ -1,0 +1,1 @@
+from .ativa_bot_view_test_case import AtivaBotViewTestCase

@@ -16,11 +16,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', '123')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '123')
+FACEBOOK_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '123')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +41,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     'core',
-    'bot_telegram'
+    'bot_telegram',
+    'bot_facebook'
 ]
 
 # INSTALLED_APPS = LOCAL_APPS + THIRD_PARTY_APPS + DEFAULT_APPS

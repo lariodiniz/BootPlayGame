@@ -11,7 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class AtivaBotView(LoginRequiredMixin, View):
 
     def get(self, request):
-
         return HttpResponse('Ativado')
 
 ativaBotView = AtivaBotView.as_view()
