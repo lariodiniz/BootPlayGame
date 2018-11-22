@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import generic
 
-from bot_facebook.utils import post_facebook_message
+from bot_facebook.utils import BotFacebook
 
 
 class AtivaBotView(View):
@@ -32,14 +32,11 @@ class AtivaBotView(View):
 
     def post(self, request, *args, **kwargs):
         incoming_message = json.loads(self.request.body.decode('utf-8'))
-        pprint.pprint(incoming_message)
-        sys.stdout.flush()
 
         for entry in incoming_message['entry']:
             for message in entry['messaging']:
                 if 'message' in message:
-                    post_facebook_message(message['sender']['id'],
-                                          message['message']['text'])
+                    bot = BotFacebook(message['sender']['id'], message['message']['text'])
         return HttpResponse()
 
 ativaBotView = AtivaBotView.as_view()
