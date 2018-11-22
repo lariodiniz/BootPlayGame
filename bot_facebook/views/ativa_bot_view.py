@@ -2,6 +2,8 @@
 __author__ = "Lário dos Santos Diniz"
 
 import json
+import pprint
+import sys
 
 from django.views import View
 from django.http import HttpResponse
@@ -30,6 +32,9 @@ class AtivaBotView(View):
 
     def post(self, request, *args, **kwargs):
         incoming_message = json.loads(self.request.body.decode('utf-8'))
+        pprint.pprint(incoming_message)
+        sys.stdout.flush()
+
         for entry in incoming_message['entry']:
             for message in entry['messaging']:
                 if 'message' in message:
