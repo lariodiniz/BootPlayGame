@@ -17,6 +17,7 @@ class BotFacebook:
         if mensagem_usuario == "/start":
             self._verificaJogador()
 
+
     def __CadastraJogador(self):
         jogador = Jogadores()
         jogador.nome = "Facebook"
@@ -27,35 +28,35 @@ class BotFacebook:
 
         if Jogadores.objects.filter(id=self.id_usuario).exists():
             mensagem = "Você já é um jogador cadastrado."
-            self._send_message(self.id_usuario, mensagem)
+            self._send_message(mensagem)
         else:
             mensagem = "Você não é um jogador cadastrado. Estamos te cadastrando..."
             contador = 0
 
             while contador < 3:
-                self._send_message(self.id_usuario, mensagem)
+                self._send_message(mensagem)
                 self.__CadastraJogador()
                 if Jogadores.objects.filter(id=self.id_usuario).exists():
                     mensagem = "Você foi cadastrado com sucesso."
-                    self._send_message(self.id_usuario, mensagem)
+                    self._send_message(mensagem)
                     contador = 4
                 elif contador < 2:
                     mensagem = "Aconteceu um problema no cadastro, vamos tentar mais uma vez."
-                    self._send_message(self.id_usuario, mensagem)
+                    self._send_message(mensagem)
                 elif contador == 2:
                     mensagem = "Aconteceu um problema no cadastro, vamos tentar uma ultima vez."
-                    self._send_message(self.id_usuario, mensagem)
+                    self._send_message(mensagem)
                 contador += 1
             if contador == 3:
                 mensagem = "Não conseguimos te cadastrar, por favor, tente de novo mais tarde."
-                self._send_message(self.id_usuario, mensagem)
+                self._send_message(mensagem)
 
 
-    def _send_message(fbid, recevied_message):
+    def _send_message(self, mensagem):
         post_message_url = 'https://graph.facebook.com/v2.6/me/messages?' \
                        'access_token={}'.format(settings.FACEBOOK_BOT_TOKEN.lstrip().rstrip().replace(' ', ''))
-        response_msg = json.dumps({"recipient": {"id": fbid},
-                               "message": {"text": recevied_message}})
+        response_msg = json.dumps({"recipient": {"id": self.id_usuario},
+                               "message": {"text": mensagem}})
         requests.post(post_message_url,
                            headers={"Content-Type": "application/json"},
                            data=response_msg)
