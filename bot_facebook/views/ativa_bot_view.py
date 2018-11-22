@@ -19,10 +19,7 @@ class AtivaBotView(View):
 
         tokenReqeust = self.request.GET.get(u'hub.verify_token')
 
-        if tokenReqeust:
-            tokenReqeust = tokenReqeust.lstrip().rstrip().replace(' ', '')
-
-        if tokenReqeust == settings.FACEBOOK_BOT_TOKEN.lstrip().rstrip().replace(' ', ''):
+        if tokenReqeust == settings.FACEBOOK_BOT_TOKEN:
             return HttpResponse(self.request.GET['hub.challenge'])
         else:
             return HttpResponse('Error, invalid token')
