@@ -14,7 +14,11 @@ class BotFacebook:
         self.id_usuario = id_usuario
         self.mensagem_usuario = mensagem_usuario
 
-        if mensagem_usuario == "/start":
+        if mensagem_usuario.lower in ['oi', 'ola', 'hello']:
+            mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\n Gostaria de jogar uma Aventura de RPG?"
+            self._send_message(mensagem)
+
+        elif mensagem_usuario == "/start":
             self._verificaJogador()
 
 
