@@ -9,6 +9,7 @@ app_name = 'bot_facebook'
 
 urlpatterns = [
     path('ativar/', ativaBotView, name='ativar'),
+    path('ativar', ativaBotView, name='app'),
 ]
 
 
