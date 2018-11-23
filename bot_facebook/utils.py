@@ -14,20 +14,24 @@ class BotFacebook:
         self.id_usuario = id_usuario
         self.mensagem_usuario = mensagem_usuario
 
-        if 'bolsonaro' in mensagem_usuario.lower():
+        if not self._MensagensPadrao():
+            if mensagem_usuario.lower() in ['oi', 'ola', 'hello']:
+                mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\nGostaria de jogar uma Aventura de RPG pelo messenger?"
+                mensagem += "\n\n"
+                mensagem += 'Responda "Sim" para jogar.'
+                self._send_message(mensagem)
+
+            elif mensagem_usuario.lower() == "/start":
+                self._verificaJogador()
+
+
+    def _MensagensPadrao(self):
+        if 'bolsonaro' in self.mensagem_usuario.lower():
             self._send_message("Comunismo vencerá!")
+        elif 'é corno' in self.mensagem_usuario.lower():
+            self._send_message("Corno é o arrombado do seu pai!")
 
-        if mensagem_usuario.lower() in ['oi', 'ola', 'hello']:
-            mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\nGostaria de jogar uma Aventura de RPG?"
-            mensagem += "\n\n"
-            mensagem += 'Responda "Sim" para jogar.'
-            self._send_message(mensagem)
-
-        #elif mensagem_usuario.lower() == "/start":
-        #    self._verificaJogador()
-
-
-    def __CadastraJogador(self):
+    def _CadastraJogador(self):
         jogador = Jogadores()
         jogador.nome = "Facebook"
         jogador.id = int(self.id_usuario)
