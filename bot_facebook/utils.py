@@ -18,8 +18,8 @@ class BotFacebook:
             mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\n Gostaria de jogar uma Aventura de RPG?"
             self._send_message(mensagem)
 
-        elif mensagem_usuario.lower() == "/start":
-            self._verificaJogador()
+        #elif mensagem_usuario.lower() == "/start":
+        #    self._verificaJogador()
 
 
     def __CadastraJogador(self):
