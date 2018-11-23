@@ -35,23 +35,14 @@ class BotFacebook:
             self._send_message(mensagem)
         else:
             mensagem = "Você não é um jogador cadastrado. Estamos te cadastrando..."
-            contador = 0
 
-            while contador < 3:
+            self._send_message(mensagem)
+            self.__CadastraJogador()
+            if Jogadores.objects.filter(id=self.id_usuario).exists():
+                mensagem = "Você foi cadastrado com sucesso."
                 self._send_message(mensagem)
-                self.__CadastraJogador()
-                if Jogadores.objects.filter(id=self.id_usuario).exists():
-                    mensagem = "Você foi cadastrado com sucesso."
-                    self._send_message(mensagem)
-                    contador = 4
-                elif contador < 2:
-                    mensagem = "Aconteceu um problema no cadastro, vamos tentar mais uma vez."
-                    self._send_message(mensagem)
-                elif contador == 2:
-                    mensagem = "Aconteceu um problema no cadastro, vamos tentar uma ultima vez."
-                    self._send_message(mensagem)
-                contador += 1
-            if contador == 3:
+
+            else:
                 mensagem = "Não conseguimos te cadastrar, por favor, tente de novo mais tarde."
                 self._send_message(mensagem)
 
