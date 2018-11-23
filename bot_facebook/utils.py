@@ -1,11 +1,12 @@
 #coding: utf-8
 __author__ = "Lário dos Santos Diniz"
 
-
+from pprint import pprint
 import json
 import requests
 from django.conf import settings
 from bot_facebook.models import Jogadores
+from core.models import MensagensPadrao
 
 class BotFacebook:
 
@@ -21,15 +22,13 @@ class BotFacebook:
                 mensagem += 'Responda "Sim" para jogar.'
                 self._send_message(mensagem)
 
-            elif mensagem_usuario.lower() == "/start":
-                self._verificaJogador()
-
 
     def _MensagensPadrao(self):
-        if 'bolsonaro' in self.mensagem_usuario.lower():
-            self._send_message("Comunismo vencerá!")
-        elif 'é corno' in self.mensagem_usuario.lower():
-            self._send_message("Corno é o arrombado do seu pai!")
+        mensagensPadrao = MensagensPadrao.objects.all()
+        for mensagempadrao in mensagensPadrao:
+            if mensagempadrao.mensagem.lower() in self.mensagem_usuario.lower():
+                self._send_message(mensagempadrao.resposta)
+
 
     def _CadastraJogador(self):
         jogador = Jogadores()

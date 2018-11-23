@@ -4,7 +4,7 @@ __author__ = "Lário dos Santos Diniz"
 from django.test import TestCase
 from model_mommy import mommy
 
-from bot_telegram.models import Jogadores
+from bot_facebook.models import Jogadores
 
 class JogadoresTestCase(TestCase):
     """Classe que testa o modelo Jogadores"""

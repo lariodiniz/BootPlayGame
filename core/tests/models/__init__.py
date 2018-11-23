@@ -1,0 +1,1 @@
+from .mensagem_padrao_test_case import MensagensPadrao
