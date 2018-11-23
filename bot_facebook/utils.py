@@ -14,8 +14,11 @@ class BotFacebook:
         self.id_usuario = id_usuario
         self.mensagem_usuario = mensagem_usuario
 
+        if 'bolsonaro' in mensagem_usuario.lower():
+            self._send_message("Comnismo vencerá!")
+
         if mensagem_usuario.lower() in ['oi', 'ola', 'hello']:
-            mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\n Gostaria de jogar uma Aventura de RPG?"
+            mensagem = "Olá, seja bem vindo a pagina Dados & Desventuras.\nGostaria de jogar uma Aventura de RPG?"
             self._send_message(mensagem)
 
         #elif mensagem_usuario.lower() == "/start":
