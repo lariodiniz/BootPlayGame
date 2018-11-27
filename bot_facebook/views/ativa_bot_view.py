@@ -38,7 +38,10 @@ class AtivaBotView(View):
                 if 'messaging' in entry:
                     for message in entry['messaging']:
                         if 'message' in message:
-                            RobotFacebook(message['sender']['id'], message['message']['text'])
+                            try:
+                                RobotFacebook(message['sender']['id'], message['message']['text'])
+                            except:
+                                pass
         return HttpResponse()
 
 ativaBotView = AtivaBotView.as_view()
