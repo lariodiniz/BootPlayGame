@@ -7,8 +7,9 @@ from .models import Jogadores
 
 class JogadoresAdmin(admin.ModelAdmin):
 
-    list_display = ['nome', 'iniciou', 'ultimo_acesso']
-    search_fields = ['nome', 'slug']
+    list_display = ['primeiro_nome', 'ultimo_nome', 'iniciou', 'ultimo_acesso', 'status']
+    search_fields = ['primeiro_nome', 'ultimo_nome', 'slug']
     list_filter = ['iniciou', 'ultimo_acesso']
+    readonly_fields = ('id', 'primeiro_nome', 'ultimo_nome', 'status', 'aventura_atual')
 
 admin.site.register(Jogadores, JogadoresAdmin)

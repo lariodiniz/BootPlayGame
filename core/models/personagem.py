@@ -5,7 +5,7 @@ from django.db import models
 
 from bot_facebook.models import Jogadores as Jogadores_F
 from bot_telegram.models import Jogadores as Jogadores_T
-from core.models import Aventura
+from core.models import Aventura, Cena
 
 
 class Personagem(models.Model):
@@ -16,10 +16,10 @@ class Personagem(models.Model):
         (2, 'Outro'),
     )
 
-    jogadorF = models.ForeignKey(Jogadores_F, verbose_name='Jogador Facebook', on_delete=models.CASCADE)
-    jogadorT = models.ForeignKey(Jogadores_T, verbose_name='Jogador Telegram', on_delete=models.CASCADE)
+    jogadorF = models.ForeignKey(Jogadores_F, verbose_name='Jogador Facebook', on_delete=models.CASCADE, null=True)
+    jogadorT = models.ForeignKey(Jogadores_T, verbose_name='Jogador Telegram', on_delete=models.CASCADE, null=True)
     aventura = models.ForeignKey(Aventura, verbose_name='Aventura', on_delete=models.CASCADE)
-    cena = models.PositiveSmallIntegerField("Cena", blank=True, null=True)
+    cena_atual = models.ForeignKey(Cena, verbose_name='Cena Atual', on_delete=models.SET_NULL, null=True)
     nome = models.CharField('Nome', max_length=50)
     iniciou = models.DateTimeField('Iniciou', auto_now_add=True)
     ultimo_acesso = models.DateTimeField('Ultimo Acesso', auto_now=True)

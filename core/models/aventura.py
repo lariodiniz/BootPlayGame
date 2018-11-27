@@ -14,4 +14,4 @@ class Aventura(models.Model):
         verbose_name_plural = 'Aventuras'
 
     def __str__(self):
-        return self.nome
+        return "{} - {}".format(self.pk, self.nome)
