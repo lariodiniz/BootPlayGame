@@ -5,6 +5,6 @@ from django.apps import AppConfig
 
 
 class BotTelegramConfig(AppConfig):
-    name = 'Telegram'
+    name = 'bot_telegram'
     verbose_name = 'Telegram'
 
