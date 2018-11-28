@@ -13,6 +13,7 @@ class Jogadores(models.Model):
         (3, 'Jogando Aventura'),
     )
 
+    id_facebook = models.CharField('Primeiro Nome', max_length=255, blank=True, unique=True)
     primeiro_nome = models.CharField('Primeiro Nome', max_length=50, blank=True)
     ultimo_nome = models.CharField('Ultimo Nome', max_length=50, blank=True)
     iniciou = models.DateTimeField('Iniciou', auto_now_add=True)

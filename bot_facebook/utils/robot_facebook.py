@@ -32,14 +32,14 @@ class RobotFacebook:
 
 
     def _verificaJogador(self):
-        if not Jogadores.objects.filter(id=self.id_usuario).exists():
+        if not Jogadores.objects.filter(id_facebook=self.id_usuario).exists():
             if "quero jogar" in self.mensagem_usuario.lower():
                 self._CadastraJogador()
                 self._IniciaAventura()
             else:
                 self._BoasVindas()
         else:
-            self._jogador = Jogadores.objects.get(pk=self.id_usuario)
+            self._jogador = Jogadores.objects.get(id_facebook=self.id_usuario)
             self._VerificaAventura()
 
 
@@ -176,7 +176,7 @@ class RobotFacebook:
                 pprint(a)
                 sys.stdout.flush()
 
-            if Jogadores.objects.filter(id=self.id_usuario).exists():
+            if Jogadores.objects.filter(id_facebook=self.id_usuario).exists():
 
                 mensagem = "Parabens {}! Você foi cadastrado com sucesso.".format(str(self._jogador))
                 self.service.EnviaMensagem(mensagem)
