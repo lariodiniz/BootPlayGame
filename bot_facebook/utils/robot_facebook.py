@@ -169,10 +169,12 @@ class RobotFacebook:
             self._jogador.primeiro_nome = dadosUsuario['first_name'] if 'first_name' in dadosUsuario else "não definido"
             self._jogador.ultimo_nome = dadosUsuario['last_name'] if 'last_name' in dadosUsuario else "não definido"
 
-            pprint(self._jogador)
-            sys.stdout.flush()
 
-            self._jogador.save()
+            try:
+                self._jogador.save()
+            except Exception as a:
+                pprint(a)
+                sys.stdout.flush()
 
             if Jogadores.objects.filter(id=self.id_usuario).exists():
 
